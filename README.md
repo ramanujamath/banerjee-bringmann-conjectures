@@ -1,5 +1,7 @@
 # Proofs of two conjectures of Banerjee and Bringmann
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24521519.svg)](https://doi.org/10.5281/zenodo.24521519)
+
 This repository contains the paper
 
 > **Proofs of two conjectures of Banerjee and Bringmann on overpartitions and universal mock theta functions**
@@ -141,4 +143,6 @@ An AI assistant (Claude, Anthropic) was used for exploratory computations, liter
 
 ## Citation
 
-If you use this work, please cite the paper (arXiv identifier to be added once posted).
+If you use this work, please cite the paper (arXiv identifier to be added once posted) and the archived code:
+
+> Ramanuja. *Proofs of two conjectures of Banerjee and Bringmann on overpartitions and universal mock theta functions* (paper and code). Zenodo, 2026. https://doi.org/10.5281/zenodo.24521519
