@@ -1,0 +1,13 @@
+# generated data (recreate with scripts/generate_data.sh)
+*.npy
+out*.txt
+__pycache__/
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.toc

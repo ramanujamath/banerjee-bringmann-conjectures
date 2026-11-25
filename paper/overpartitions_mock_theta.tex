@@ -1,0 +1,655 @@
+\documentclass[11pt]{amsart}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\OP}{\mathrm{OP}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Ocal}{\mathcal{O}}
+\newcommand{\Cl}{\mathrm{Cl}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\fr}{\mathfrak{r}}
+\newcommand{\sq}{\square}
+\newcommand{\ind}[1]{[\,#1\,]}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+
+\title[Overpartitions and universal mock theta functions]{Proofs of two conjectures of Banerjee and Bringmann\\ on overpartitions and universal mock theta functions}
+
+\author{Ramanuja}
+\address{Kachhubi, Lakhnaur block, Madhubani district, Bihar 847410, India}
+\email{ramanujamath@yahoo.com}
+
+\subjclass[2020]{Primary 11P83; Secondary 05A17, 11E16, 11F37}
+\keywords{Overpartitions, congruences, mock theta functions, theta functions, binary quadratic forms}
+
+\date{\today}
+
+\begin{document}
+
+\begin{abstract}
+Banerjee and Bringmann recently related two families of restricted overpartitions, counted by $\op_1^{[1]}(n)$ and $\op_1^{[2]}(n)$, to Hickerson's universal mock theta functions, and conjectured two infinite families of congruences modulo $2$ and $4$. We prove both conjectures. In fact we show that $\op_1^{[1]}(4m)$ is odd if and only if $m$ is a triangular number, and that $\op_1^{[2]}(2m)\equiv\sum_{d\mid 8m+1}\left(\frac{-4}{d}\right)\pmod 4$. We further prove that $\op_1^{[1]}(4n+1)\equiv 0\pmod 4$, and we express $\op_1^{[1]}(4m)$ modulo $4$ explicitly through numbers of representations of $8m+1$ (and of $(8m+1)/3$, $(8m+1)/9$) by binary quadratic forms. Using genus theory and a pairing argument in imaginary quadratic orders, we determine, for every prime $p\equiv 1\pmod 8$ and every prime $p\equiv 13,23\pmod{24}$, the residue of $\op_1^{[1]}(4m)$ modulo $4$ whenever $p\,\|\,8m+1$. This yields infinitely many explicit families of congruences modulo $4$. The proofs reduce the mock theta functions $\omega(q)$ and $\mathcal{B}(q)$ to theta functions modulo small powers of $2$.
+\end{abstract}
+
+\maketitle
+
+% =====================================================================
+\section{Introduction}\label{sec:intro}
+% =====================================================================
+
+\subsection{Notation}\label{subsec:notation}
+Throughout, $q$ is a formal variable and all identities are identities of formal power series in $\Z[[q]]$. For $a\in\Z[[q]]$ and $n\ge 0$ we write
+\[
+(a;q)_n:=\prod_{j=0}^{n-1}(1-aq^j),\qquad (a;q)_\infty:=\prod_{j\ge 0}(1-aq^j),\qquad f_k:=(q^k;q^k)_\infty\quad(k\ge 1).
+\]
+For a positive integer $M$ and $F,G\in\Z[[q]]$ we write $F\equiv G\pmod M$ if all coefficients of $F-G$ are divisible by $M$. Every $f_k$ has constant term $1$, so it is a unit in $\Z[[q]]$ and congruences between such products may be divided. For a power series $F(q)=\sum_n a(n)q^n$ we write $[q^n]F:=a(n)$.
+
+The theta functions of Ramanujan are
+\begin{equation}\label{eq:phipsi}
+\varphi(q):=\sum_{n\in\Z}q^{n^2}=\frac{f_2^5}{f_1^2f_4^2},\qquad
+\psi(q):=\sum_{n\ge 0}q^{n(n+1)/2}=\frac{f_2^2}{f_1},
+\end{equation}
+and, for $|ab|<1$ (formally, for $a,b$ monomials of positive degree), $f(a,b):=\sum_{n\in\Z}a^{n(n+1)/2}b^{n(n-1)/2}$. Jacobi's triple product identity states
+\begin{equation}\label{eq:JTP}
+f(a,b)=(-a;ab)_\infty(-b;ab)_\infty(ab;ab)_\infty .
+\end{equation}
+We also use $X(q):=\sum_{y\ge1}q^{y^2}$, so that $\varphi(q)=1+2X(q)$, and the two series
+\begin{equation}\label{eq:Pu}
+P(q):=\sum_{k\in\Z}q^{k(3k-1)/2}=f(q,q^2),\qquad u(q):=\sum_{k\in\Z}q^{k(3k+2)}=f(q,q^5).
+\end{equation}
+The exponents of $P$ are the generalized pentagonal numbers and those of $u$ are the generalized octagonal numbers $k(3k+2)$, $k\in\Z$ (equivalently $\{k(3k-2):k\in\Z\}$); the maps $k\mapsto k(3k\pm1)/2$ and $k\mapsto k(3k+2)$ are injective on $\Z$.
+
+For a statement $S$ we write $\ind{S}$ for $1$ if $S$ is true and $0$ otherwise. We write $n=\sq$ for ``$n$ is a perfect square'' (in particular $n$ is a non-negative integer). For integers $a,c\ge 1$ and a rational number $n$ we put
+\[
+r_{a,c}(n):=\#\{(x,y)\in\Z^2: ax^2+cy^2=n\}\quad\text{if } n\in\Z_{\ge1},\qquad r_{a,c}(n):=0\ \text{otherwise},
+\]
+and $r_c(n):=r_{1,c}(n)$. Thus, for example, $r_{16}(N/9)=0$ unless $9\mid N$. For an integer $d$ and odd $n$, $\left(\frac{d}{n}\right)$ is the Kronecker symbol.
+
+\subsection{The overpartition functions}
+An \emph{overpartition} of $n$ is a partition of $n$ in which the first occurrence of each part may be overlined. Following Banerjee and Bringmann \cite[\S1]{BB}, let:
+\begin{itemize}[leftmargin=2em]
+\item $\op_1^{[1]}(n)$ be the number of overpartitions of $n$ in which even parts are not overlined, the largest part is even, and each odd part occurs at most twice, and if it occurs twice then exactly one of its occurrences is overlined;
+\item $\op_1^{[2]}(n)$ be the number of overpartitions of $n$ with no part divisible by $4$, in which parts $\equiv 2\pmod 4$ are not overlined, each odd part occurs at most twice (and if twice, exactly one occurrence is overlined), and, if exactly $m$ parts are $\equiv 2\pmod 4$, every odd part is less than $2m$.
+\end{itemize}
+We put $\op_1^{[1]}(0)=\op_1^{[2]}(0)=1$ and write $\OP_1^{[j]}(q):=\sum_{n\ge0}\op_1^{[j]}(n)q^n$. To keep formulas readable we abbreviate
+\[
+a(n):=\op_1^{[1]}(n),\qquad b_2(n):=\op_1^{[2]}(n).
+\]
+
+Banerjee and Bringmann proved that these generating functions are mixed mock modular forms built from Hickerson's universal mock theta function $g_3$ and the Gordon--McIntosh universal mock theta function $g_2$, and they stated the following conjectures \cite[\S4]{BB}.
+
+\begin{conjecture}[{\cite[Conj.~4.1]{BB}}]\label{conj:41}
+For every odd prime $p$ and every $k\in\Z_{\ge0}$,
+\[
+2\mid a(4pn+4k)\ \text{ for all } n\ge 0\quad\Longleftrightarrow\quad \left(\frac{8k+1}{p}\right)=-1 .
+\]
+\end{conjecture}
+
+\begin{conjecture}[{\cite[Conj.~4.2]{BB}}]\label{conj:42}
+For every odd prime $p\not\equiv1\pmod 8$, every $n\ge0$ and every $1\le k\le p-1$,
+\[
+b_2\!\left(2p^2n+\tfrac{p^2-1}{4}+2pk\right)\equiv 0\pmod 4 .
+\]
+\end{conjecture}
+
+\subsection{Results}
+Our first two theorems give exact descriptions modulo $2$ and $4$ from which the conjectures follow.
+
+\begin{theorem}\label{thm:A}
+For all $n\ge0$, $a(2n+1)$ is even. For all $m\ge0$, $a(4m)$ is odd if and only if $8m+1$ is a perfect square, i.e.\ if and only if $m$ is a triangular number. Equivalently, $\sum_{m\ge0}a(4m)q^m\equiv\psi(q)\pmod 2$.
+\end{theorem}
+
+\begin{corollary}\label{cor:41}
+Conjecture~\ref{conj:41} is true.
+\end{corollary}
+
+\begin{theorem}\label{thm:B}
+For all $m\ge0$,
+\[
+\sum_{m\ge0}b_2(2m)q^m\equiv\frac{f_4}{f_1}\equiv\psi(q)\varphi(q^2)\pmod 4,
+\qquad\text{hence}\qquad
+b_2(2m)\equiv\sum_{d\mid 8m+1}\left(\frac{-4}{d}\right)\pmod 4 .
+\]
+\end{theorem}
+
+\begin{corollary}\label{cor:42}
+Conjecture~\ref{conj:42} is true. More precisely, $b_2(2m)\equiv0\pmod 4$ if and only if $N=8m+1$ satisfies one of: \textup{(i)} some prime $\ell\equiv3\pmod4$ divides $N$ to an odd power; \textup{(ii)} at least two primes $\ell\equiv1\pmod4$ divide $N$ to odd powers; \textup{(iii)} some prime $\ell\equiv1\pmod4$ divides $N$ to a power $\equiv3\pmod 4$.
+\end{corollary}
+
+We then study $a(n)$ modulo $4$.
+
+\begin{theorem}\label{thm:C}
+For all $n\ge0$, $a(4n+1)\equiv 0\pmod 4$. Moreover
+\[
+\sum_{m\ge0}a(4m)q^m\equiv \psi(q)\varphi(q^2)+2q\,f_1f_6^3f_8\pmod 4 .
+\]
+\end{theorem}
+
+The second term in Theorem~\ref{thm:C} can itself be expressed through binary quadratic forms. For $m\ge0$ put $N:=8m+1$ and define $E(m)\in\Z$ by
+\begin{equation}\label{eq:E}
+E(m):=\begin{cases}
+0, & m\equiv 2\pmod 3,\\[2pt]
+\tfrac14\big(r_{144}(N)+r_{9,16}(N)+r_{24}(N)-r_{96}(N)+r_{72}(N)\big)+\ind{N=\sq}, & m\equiv 0\pmod 3,\\[2pt]
+\tfrac14\big(r_{8}(N)+r_{16}(N/9)+r_{3,8}(N/3)-r_{3,32}(N/3)\big)+\ind{N/9=\sq}, & m\equiv 1\pmod 3.
+\end{cases}
+\end{equation}
+(We show in the proof that the quantities in \eqref{eq:E} are integers.)
+
+\begin{theorem}\label{thm:D}
+For every $m\ge0$, with $N=8m+1$,
+\[
+a(4m)\equiv \tfrac12\,r_{32}(N)+2E(m)\pmod 4 .
+\]
+In particular, if $m\equiv2\pmod3$ then $a(4m)\equiv\frac12 r_{32}(8m+1)\pmod 4$.
+\end{theorem}
+
+Theorem~\ref{thm:D} allows a description of congruence families attached to primes. For a prime $p\equiv1\pmod 8$ define
+\begin{equation}\label{eq:eps}
+\varepsilon(p):=\begin{cases}
+\ind{p=x^2+32y^2\text{ is solvable}}, & p\equiv17\pmod{24},\\[2pt]
+1-\big(\ind{p=x^2+32y^2\text{ is solvable}}-\ind{p=x^2+96y^2\text{ is solvable}}\big)^2, & p\equiv1\pmod{24}.
+\end{cases}
+\end{equation}
+Thus for $p\equiv1\pmod{24}$, $\varepsilon(p)=0$ exactly when precisely one of the forms $x^2+32y^2$, $x^2+96y^2$ represents $p$.
+
+\begin{theorem}\label{thm:E}
+Let $p\ge5$ be prime and let $m\ge0$ be such that $p$ divides $N=8m+1$ exactly once.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $p\equiv 13$ or $23\pmod{24}$, then $a(4m)\equiv0\pmod 4$.
+\item If $p\equiv1\pmod 8$, then
+\[
+a(4m)\equiv 2\,\varepsilon(p)\,\ind{N/p=\sq}\pmod 4 .
+\]
+In particular $\varepsilon(p)\equiv\frac12 a\big(\frac{p-1}{2}\big)\pmod 2$.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}\label{cor:families}
+Let $p$ be a prime with $p\equiv 13$ or $23\pmod{24}$, or $p\equiv1\pmod8$ and $\varepsilon(p)=0$. Then $a(4m)\equiv0\pmod 4$ for every $m\ge0$ with $p\,\|\,8m+1$. Equivalently, if $k_0$ denotes the residue of $-8^{-1}$ modulo $p$, then
+\[
+a\big(4p^2n+4(k_0+pj)\big)\equiv0\pmod 4\qquad(n\ge0)
+\]
+for each of the $p-1$ values $j\in\{0,1,\dots,p-1\}$ with $8(k_0+pj)+1\not\equiv0\pmod{p^2}$. Conversely, if $p\equiv1\pmod 8$ and $\varepsilon(p)=1$ then $a\big(\frac{p-1}{2}\big)\equiv2\pmod4$, so no such family exists for $p$.
+\end{corollary}
+
+For instance, the primes $13,17,23,37,47,61,71,89,97,109,\dots$ give families; for $p\equiv 1\pmod{24}$ the first ones are $97,313,337,433,577,673,\dots$, while $73,193,241$ do not.
+
+Finally, for the second function we record an exact identity explaining why no analogous theta-function formula modulo $8$ should be expected; see Remark~\ref{rem:mod8}.
+
+\begin{proposition}\label{prop:exact}
+Let $\mathcal B(q)=\sum_{n\ge0}\beta(n)q^n$ be McIntosh's second order mock theta function \eqref{eq:Bdef}. Then, exactly,
+\[
+\sum_{m\ge0}b_2(2m)q^m=\frac{f_2^2f_4^5}{f_1^5f_8^2}-2q\,\frac{f_8^2}{f_1f_2f_4}\sum_{n\ge0}\beta(2n+1)q^n .
+\]
+\end{proposition}
+
+\subsection*{Organization} Section~\ref{sec:prelim} collects the known identities we use. Section~\ref{sec:omega} establishes the $4$-dissection of $\omega(q)$ modulo powers of $2$. Theorems~\ref{thm:A}, \ref{thm:B}, \ref{thm:C} and Proposition~\ref{prop:exact} are proved in Section~\ref{sec:ABC}. Section~\ref{sec:D} proves Theorem~\ref{thm:D} via $3$-dissections. Section~\ref{sec:forms} contains the arithmetic of binary quadratic forms and the proof of Theorem~\ref{thm:E}.
+
+% =====================================================================
+\section{Preliminaries}\label{sec:prelim}
+% =====================================================================
+
+\subsection{Elementary congruences}
+Since $(1-x)^2\equiv 1-x^2\pmod 2$ we have $f_k^2\equiv f_{2k}\pmod 2$, and squaring a congruence modulo $2^j$ gives one modulo $2^{j+1}$; hence
+\begin{equation}\label{eq:frob}
+f_k^{2}\equiv f_{2k}\pmod 2,\qquad f_k^{4}\equiv f_{2k}^{2}\pmod 4,\qquad f_k^{8}\equiv f_{2k}^{4}\pmod 8 .
+\end{equation}
+Similarly $(-q;q^2)_n^2\equiv(q^2;q^4)_n\pmod 2$ for $0\le n\le\infty$. By Euler's pentagonal number theorem and Jacobi's identity $f_1^3=\sum_{n\ge0}(-1)^n(2n+1)q^{n(n+1)/2}$,
+\begin{equation}\label{eq:mod2basic}
+P(q)\equiv f_1,\qquad \psi(q)\equiv f_1^3,\qquad \varphi(q)\equiv 1\pmod 2 .
+\end{equation}
+By \eqref{eq:JTP} with $(a,b)=(q,q^5)$ and $(q;q^6)_\infty(q^5;q^6)_\infty=f_1f_6/(f_2f_3)$,
+\begin{equation}\label{eq:umod2}
+u(q)=(-q;q^6)_\infty(-q^5;q^6)_\infty(q^6;q^6)_\infty\equiv \frac{f_1f_6^2}{f_2f_3}\pmod 2 .
+\end{equation}
+We also use the classical $2$-dissections (see e.g.\ \cite[Ch.~1]{Hir})
+\begin{equation}\label{eq:2diss}
+\frac{1}{f_1^2}=\frac{f_8^5}{f_2^5f_{16}^2}+2q\,\frac{f_4^2f_{16}^2}{f_2^5f_8},\qquad
+\varphi(q)=\varphi(q^4)+2q\,\psi(q^8),
+\end{equation}
+and the $3$-dissections
+\begin{equation}\label{eq:3diss}
+\psi(q)=P(q^3)+q\,\psi(q^9),\qquad X(q)=X(q^9)+q\,u(q^3).
+\end{equation}
+\begin{proof}[Proof of \eqref{eq:3diss}]
+For $n=3k+1$ ($k\ge0$), $n(n+1)/2=1+9k(k+1)/2$; for $n=3k$ ($k\ge0$) and $n=3k-1$ ($k\ge1$), $n(n+1)/2$ equals $3\cdot\frac{k(3k+1)}{2}$ and $3\cdot\frac{k(3k-1)}{2}$, which together give $P(q^3)$. For $X$: $y=3z$ gives $X(q^9)$; $y=3k+1$ ($k\ge0$) and $y=3k-1$ ($k\ge1$) give $y^2=1+3k(3k\pm2)$, and $k\mapsto -k$ turns the second family into $k(3k+2)$ with $k\le -1$.
+\end{proof}
+
+Finally we need Ramanujan's identity (see e.g.\ \cite[Cor.~2.5]{Cao})
+\begin{equation}\label{eq:ramanujan}
+\psi(q)\psi(q^3)=\varphi(q^6)\psi(q^4)+q\,\varphi(q^2)\psi(q^{12}),
+\quad\text{hence}\quad
+\psi(q)\psi(q^3)\equiv\psi(q^4)+q\,\psi(q^{12})\pmod 2 .
+\end{equation}
+
+\subsection{Mock theta functions and generating functions}
+Ramanujan's third order mock theta functions $f(q)$ and $\omega(q)$ (we write $f_{\mathrm{m}}$ for the former to avoid confusion with $f_k$) and McIntosh's second order mock theta function $\mathcal B(q)$ are
+\begin{equation}\label{eq:Bdef}
+f_{\mathrm m}(q):=\sum_{n\ge0}\frac{q^{n^2}}{(-q;q)_n^2},\qquad
+\omega(q):=\sum_{n\ge0}\frac{q^{2n(n+1)}}{(q;q^2)_{n+1}^2},\qquad
+\mathcal B(q):=\sum_{n\ge0}\frac{q^{n(n+1)}(-q^2;q^2)_n}{(q;q^2)_{n+1}^2}.
+\end{equation}
+We write $\omega(q)=\sum_{n\ge0}w(n)q^n$, $\mathcal B(q)=\sum_{n\ge0}\beta(n)q^n$ and, for $r\in\{0,1,2,3\}$, $W_r(q):=\sum_{n\ge0}w(4n+r)q^n$.
+
+The universal mock theta functions are
+\[
+g_3(x;q):=\sum_{n\ge0}\frac{q^{n(n+1)}}{(x;q)_{n+1}(q/x;q)_{n+1}},\qquad
+g_2(x;q):=\sum_{n\ge0}\frac{(-q;q)_n\,q^{n(n+1)/2}}{(x;q)_{n+1}(q/x;q)_{n+1}} .
+\]
+
+\begin{theorem}[{Banerjee--Bringmann \cite[Thms.~1.2, 1.4]{BB}}]\label{thm:BB}
+\[
+\OP_1^{[1]}(q)=\frac{(-q;q^2)_\infty^2}{(q^2;q^2)_\infty}\,g_3(-q;q^2),\qquad
+\OP_1^{[2]}(q)=\frac{(-q;q^2)_\infty^2}{(q^4;q^4)_\infty}\,g_2(-q;q^2).
+\]
+\end{theorem}
+
+Substituting $q\mapsto q^2$, $x=-q$ in the definitions, and using that $n(n+1)$ is even, gives $g_3(-q;q^2)=\omega(-q)$ and $g_2(-q;q^2)=\mathcal B(-q)$. Since $(-q;q^2)_\infty=f_2^2/(f_1f_4)$,
+\begin{equation}\label{eq:OPs}
+\OP_1^{[1]}(q)=\mathcal A(q)\,\omega(-q),\quad \mathcal A:=\frac{f_2^3}{f_1^2f_4^2};\qquad
+\OP_1^{[2]}(q)=\mathcal C(q)\,\mathcal B(-q),\quad \mathcal C:=\frac{f_2^4}{f_1^2f_4^3}.
+\end{equation}
+
+We use the following known results.
+
+\begin{theorem}[Watson; Andrews--Passary--Sellers--Yee]\label{thm:APSY}
+\[
+f_{\mathrm m}(q^8)+2q\,\omega(q)+2q^3\omega(-q^4)=\frac{\varphi(q)\varphi(q^2)^2}{f_4^2}=\sum_{j=0}^{3}q^jG_j(q^4),
+\]
+where
+\[
+G_0=\frac{\varphi(q)^3}{f_1^2},\quad G_1=\frac{2\varphi(q)^2\psi(q^2)}{f_1^2},\quad G_2=\frac{4\varphi(q)\psi(q^2)^2}{f_1^2},\quad G_3=\frac{8\psi(q^2)^3}{f_1^2}.
+\]
+\end{theorem}
+The first equality is due to Watson \cite[p.~63]{Wat}; the $4$-dissection is \cite[Lemma~3.1]{APSY}.
+
+\begin{theorem}[Watson \cite{Wat}]\label{thm:watsonf}
+$f_{\mathrm m}(q)\,f_1=1+4\sum_{n\ge1}\frac{(-1)^nq^{n(3n+1)/2}}{1+q^n}$. In particular $f_{\mathrm m}(q)\equiv 1/f_1\pmod 4$.
+\end{theorem}
+
+\begin{theorem}[Bringmann--Ono--Rhoades \cite{BOR}]\label{thm:BOR}
+$\frac12\big(\mathcal B(q)+\mathcal B(-q)\big)=\dfrac{f_4^5}{f_2^4}$, i.e.\ $\sum_{n\ge0}\beta(2n)q^n=f_2^5/f_1^4$.
+\end{theorem}
+
+\begin{theorem}[Wang {\cite[Thm.~3.2]{Wang}}]\label{thm:wang}
+$\beta(n)$ is odd if and only if $n=2k^2+2k$ for some $k\ge0$. In particular $\beta(2n+1)$ is even for all $n\ge0$.
+\end{theorem}
+
+% =====================================================================
+\section{The \texorpdfstring{$4$}{4}-dissection of \texorpdfstring{$\omega(q)$}{omega(q)} modulo powers of \texorpdfstring{$2$}{2}}\label{sec:omega}
+% =====================================================================
+
+\begin{lemma}\label{lem:omega}
+With $W_r$ as above:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $W_0=\dfrac{f_2^9}{f_1^6f_4^2}$;
+\item $W_1=2\,\dfrac{f_2^3f_4^2}{f_1^4}$;
+\item $W_2(q)=4\,\dfrac{\psi(q^2)^3}{f_1^2}-\omega(-q)$; in particular $w(4n+2)\equiv w(n)\pmod 2$;
+\item $W_3\equiv0\pmod 2$;
+\item $w(n)$ is odd if and only if $n=2k(3k-2)$ for some $k\in\Z$.
+\end{enumerate}
+Consequently the odd part $\sum_n w(2n+1)q^{2n+1}$ of $\omega$ is $\equiv0\pmod2$, $W_0\equiv f_4\pmod 2$, and $W_2(q)\equiv u(q^2)=\sum_{k\in\Z}q^{2k(3k+2)}\pmod 2$.
+\end{lemma}
+
+\begin{proof}
+Compare coefficients of $q^{4n+j}$, $j=0,1,2,3$, in Theorem~\ref{thm:APSY}. The term $f_{\mathrm m}(q^8)$ contributes only to $j=0$, and $2q^3\omega(-q^4)$ only to $j=3$. For $j=1,2,3$ we obtain $2W_0=G_1$, $2W_1=G_2$ and $2W_2(q)+2\omega(-q)=G_3$, which give (i)--(iii) using $\varphi=f_2^5/(f_1^2f_4^2)$ and $\psi(q^2)=f_4^2/f_2$. For $j=0$ we obtain $f_{\mathrm m}(q^2)+2qW_3(q)=G_0(q)$. By Theorem~\ref{thm:watsonf}, $f_{\mathrm m}(q^2)\equiv 1/f_2\pmod 4$, while by \eqref{eq:frob}
+\[
+G_0=\frac{f_2^{15}}{f_1^{8}f_4^{6}}\equiv\frac{f_2^{15}}{f_2^{4}f_4^{6}}=\frac{f_2^{3}\cdot f_2^8}{f_4^6}\equiv\frac{f_2^3f_4^4}{f_4^6}=\frac{f_2^3}{f_4^2}\equiv\frac{f_2^3}{f_2^4}=\frac1{f_2}\pmod 4 .
+\]
+Hence $2qW_3\equiv0\pmod 4$, proving (iv).
+
+For (v): by (ii) and (iv), $w(n)$ is even for odd $n$. By (i) and \eqref{eq:frob}, $W_0\equiv f_2^9/(f_2^3f_4^2)=f_2^6/f_4^2\equiv f_4^3/f_4^2=f_4\pmod 2$, so by Euler's theorem $w(4n)$ is odd iff $n=2k(3k-1)$ for some $k\in\Z$. By (iii), $w(4n+2)\equiv w(n)$. Let $S=\{2j(3j-2):j\in\Z\}$. All elements of $S$ are even; $2j(3j-2)\equiv0\pmod4$ iff $j$ is even, and for $j=2i$ we get $4\cdot 2i(3i-1)$; for $j=1-2l$ odd we get $2j(3j-2)=4\cdot 2l(3l-2)+2$. Hence $S$ satisfies: $4n\in S\iff n\in\{2k(3k-1)\}$, and $4n+2\in S\iff n\in S$. The set of $n$ with $w(n)$ odd satisfies the same recursion and has no odd elements, so by induction on $n$ the two sets coincide.
+\end{proof}
+
+\begin{remark}
+Part (v) agrees with \cite[Thm.~4.4]{Wang}, where it is shown that $w(2n)$ is odd if and only if $3n+1$ is a square: indeed $n=j(3j-2)$ gives $3n+1=(3j-1)^2$.
+\end{remark}
+
+% =====================================================================
+\section{Proofs of Theorems~\ref{thm:A}, \ref{thm:B}, \ref{thm:C} and Proposition~\ref{prop:exact}}\label{sec:ABC}
+% =====================================================================
+
+For a power series $F(q)$ we write $F=F^{e}+F^{o}$ for its decomposition into even and odd parts, $F^{e}(q)=\frac12(F(q)+F(-q))$.
+
+\subsection{Proof of Theorem~\ref{thm:A}}
+By \eqref{eq:OPs} and \eqref{eq:frob}, $\mathcal A=f_2^3/(f_1^2f_4^2)\equiv f_2^2/f_8\equiv f_4/f_8\equiv 1/f_4\pmod 2$, and $\omega(-q)\equiv\omega(q)\pmod 2$. Thus
+\[
+\OP_1^{[1]}(q)\equiv\frac{\omega(q)}{f_4}\pmod 2 .
+\]
+Since $1/f_4$ is a series in $q^4$ and the odd-indexed coefficients of $\omega$ are even (Lemma~\ref{lem:omega}), every $a(2n+1)$ is even. Extracting the exponents $\equiv0\pmod 4$ and replacing $q^4$ by $q$ gives, by Lemma~\ref{lem:omega},
+\[
+\sum_{m\ge0}a(4m)q^m\equiv\frac{W_0(q)}{f_1}\equiv\frac{f_4}{f_1}\equiv\frac{f_2^2}{f_1}=\psi(q)\pmod 2 .
+\]
+The coefficient of $q^m$ in $\psi$ is $1$ if $m$ is triangular and $0$ otherwise, and $m$ is triangular iff $8m+1$ is a square. \qed
+
+\subsection{Proof of Corollary~\ref{cor:41}}
+Let $p$ be an odd prime, $k\ge0$, and $m=pn+k$, so $8m+1\equiv 8k+1\pmod p$. If $\left(\frac{8k+1}{p}\right)=-1$ then no $8m+1$ is a square, and all $a(4m)$ are even by Theorem~\ref{thm:A}. Otherwise choose $x_0$ with $x_0^2\equiv8k+1\pmod p$ (take $x_0=0$ if $p\mid8k+1$), and by the Chinese remainder theorem an odd $x\equiv x_0\pmod p$ with $x^2\ge 8k+1$. Then $x^2\equiv1\equiv8k+1\pmod8$, so $x^2\equiv8k+1\pmod{8p}$, and $m:=(x^2-1)/8$ satisfies $m\equiv k\pmod p$, $m\ge k$. Thus $m=pn+k$ with $n\ge0$ and $a(4m)$ is odd. \qed
+
+\subsection{Proof of Theorem~\ref{thm:B}}
+By \eqref{eq:OPs}, $\OP_1^{[2]}=\mathcal C(q)\mathcal B(-q)$, so its even part is
+\begin{equation}\label{eq:evenOP2}
+\big(\OP_1^{[2]}\big)^{e}=\mathcal C^{e}\mathcal B^{e}-\mathcal C^{o}\mathcal B^{o}.
+\end{equation}
+By \eqref{eq:2diss},
+\[
+\mathcal C^{e}=\frac{f_8^5}{f_2f_4^3f_{16}^2},\qquad \mathcal C^{o}=2q\,\frac{f_{16}^2}{f_2f_4f_8},
+\]
+and by Theorem~\ref{thm:BOR}, $\mathcal B^{e}=f_4^5/f_2^4$. By Theorem~\ref{thm:wang}, $\mathcal B^{o}\equiv0\pmod 2$, so $\mathcal C^{o}\mathcal B^{o}\equiv0\pmod 4$. Hence $(\OP_1^{[2]})^{e}\equiv f_4^2f_8^5/(f_2^5f_{16}^2)\pmod 4$. Replacing $q^2$ by $q$ and using \eqref{eq:frob},
+\[
+\sum_{m\ge0}b_2(2m)q^m\equiv\frac{f_2^2f_4^5}{f_1^5f_8^2}\equiv\frac{f_2^2f_4^5}{f_1f_2^2f_8^2}=\frac{f_4\cdot f_4^4}{f_1f_8^2}\equiv\frac{f_4}{f_1}\pmod 4 .
+\]
+Now $f_4/f_1=\psi(q)/\varphi(-q^2)$ since $\varphi(-q)=f_1^2/f_2$. Writing $\varphi(-q^2)=1+2Y$ with $Y=\sum_{k\ge1}(-1)^kq^{2k^2}$, we get $1/(1+2Y)\equiv1-2Y\equiv1+2\sum_{k\ge1}q^{2k^2}=\varphi(q^2)\pmod 4$. Thus $\sum b_2(2m)q^m\equiv\psi(q)\varphi(q^2)$.
+
+The coefficient of $q^m$ in $\psi(q)\varphi(q^2)$ is the number of pairs $(x,y)$ with $x\ge1$ odd, $y\in\Z$, $x^2+16y^2=N:=8m+1$. If $N=s^2+t^2$, exactly one of $s,t$ is odd, and if $s$ is odd then $t^2=N-s^2\equiv0\pmod 8$ forces $4\mid t$. Hence these pairs correspond to the representations $N=s^2+t^2$ with $s$ odd and positive, which are one quarter of all $r_1(N)=4\sum_{d\mid N}\left(\frac{-4}{d}\right)$ representations. \qed
+
+\subsection{Proof of Corollary~\ref{cor:42}}
+Let $D(N)=\sum_{d\mid N}\left(\frac{-4}{d}\right)$; it is multiplicative with local factor $e+1$ at $\ell^e\|N$ for $\ell\equiv1\pmod4$, and $\ind{e\text{ even}}$ for $\ell\equiv3\pmod4$. The characterization of $D(N)\equiv0\pmod4$ follows immediately. For Conjecture~\ref{conj:42}, the index is $2m$ with $m=p^2n+\frac{p^2-1}{8}+pk$, so $N=8m+1=p(8pn+p+8k)$, and $p\,\|\,N$ because $p\nmid 8k$. If $p\equiv3,7\pmod 8$ then $D(N)=0$. If $p\equiv5\pmod 8$ the local factor at $p$ is $2$ and the cofactor $M=N/p\equiv5\pmod 8$ is not a square; since $D(M)$ is odd iff $M$ is a square, $D(N)=2D(M)\equiv0\pmod4$. \qed
+
+\subsection{Proof of Proposition~\ref{prop:exact}}
+\eqref{eq:evenOP2} holds exactly. Inserting $\mathcal C^{e},\mathcal C^{o}$, $\mathcal B^{e}=f_4^5/f_2^4$ and $\mathcal B^{o}=\sum_n\beta(2n+1)q^{2n+1}$ and replacing $q^2$ by $q$ gives the claim. \qed
+
+\begin{remark}\label{rem:mod8}
+By Theorem~\ref{thm:wang}, Proposition~\ref{prop:exact} expresses $b_2(2m)$ modulo $8$ through the parity of $\beta(2n+1)/2$. Since $\sum_n\beta(4n+1)q^n$ is a theta quotient (it equals $2f_2^8/f_1^7$, as one checks numerically), the obstruction comes from $\beta(4n+3)/2\bmod 2$. Numerically this sequence is odd for about $30\%$ of $n$, and it agrees with no eta quotient $\prod_{k\mid16}f_k^{e_k}$ ($|e_k|\le3$) and with no sequence $p(an+b)\bmod 2$, $a\le 24$. This is consistent with the absence of any congruence $b_2(An+B)\equiv0\pmod 8$ with $A\le300$ in our data.
+\end{remark}
+
+\subsection{Proof of Theorem~\ref{thm:C}}
+By \eqref{eq:OPs} and \eqref{eq:2diss},
+\[
+\mathcal A^{e}=\frac{f_8^5}{f_2^2f_4^2f_{16}^2},\qquad \mathcal A^{o}=2q\,\frac{f_{16}^2}{f_2^2f_8},
+\]
+and $\omega(-q)=\omega^{e}(q)-\omega^{o}(q)$ with $\omega^{e}=W_0(q^4)+q^2W_2(q^4)$ and $\omega^{o}=qW_1(q^4)+q^3W_3(q^4)$. By Lemma~\ref{lem:omega}, $\omega^{o}\equiv0\pmod 2$.
+
+\emph{The congruence $a(4n+1)\equiv0\pmod 4$.} The odd part of $\OP_1^{[1]}$ is
+\[
+-\mathcal A^{e}\omega^{o}+\mathcal A^{o}\omega^{e}=2\Big[-\mathcal A^{e}\cdot\tfrac12\omega^{o}+\tfrac12\mathcal A^{o}\cdot\omega^{e}\Big],
+\]
+so it suffices to show that the bracket has no terms $q^{4n+1}$ modulo $2$. Modulo $2$, by \eqref{eq:frob},
+\[
+\mathcal A^{e}\equiv\frac{f_8^5}{f_4f_8f_{32}}=\frac{f_8^4}{f_4f_{32}}\equiv\frac1{f_4},\qquad \tfrac12\mathcal A^{o}\equiv q\,\frac{f_{32}}{f_4f_8}.
+\]
+Both $1/f_4$ and $f_{32}/(f_4f_8)$ are series in $q^4$. Hence the $q^{4n+1}$-part of $\mathcal A^{e}\cdot\frac12\omega^{o}$ is $\frac{1}{f_4}\cdot\frac12 qW_1(q^4)\equiv q\,f_8^3f_{16}/f_4$ by Lemma~\ref{lem:omega}(ii) and \eqref{eq:frob}, and the $q^{4n+1}$-part of $\frac12\mathcal A^{o}\omega^{e}$ is $q\frac{f_{32}}{f_4f_8}W_0(q^4)\equiv q\frac{f_{16}f_{32}}{f_4f_8}$, using $W_0\equiv f_4$. Their ratio is $f_8^4/f_{32}\equiv1\pmod 2$, so the two parts cancel modulo $2$.
+
+\emph{The formula for $a(4m)$.} The even part of $\OP_1^{[1]}$ is $\mathcal A^{e}\omega^{e}-\mathcal A^{o}\omega^{o}$, and $\mathcal A^{o}\omega^{o}\equiv0\pmod 4$. Put $Q=q^2$, $R=q^4$. In terms of $Q$, $\mathcal A^{e}=f_4^5/(f_1^2f_2^2f_8^2)$; applying \eqref{eq:2diss} in the variable $Q$ we obtain $\mathcal A^{e}=\mathcal A_0(R)+2Q\,\mathcal A_1(R)$ with
+\[
+\mathcal A_0=\frac{f_2^5f_4^3}{f_1^7f_8^2},\qquad \mathcal A_1=\frac{f_2^7f_8^2}{f_1^7f_4^3}.
+\]
+Since $\omega^{e}=W_0(R)+QW_2(R)$, the part of $\mathcal A^{e}\omega^{e}$ supported on exponents divisible by $4$ is $\mathcal A_0(R)W_0(R)+2R\,\mathcal A_1(R)W_2(R)$. Therefore
+\[
+\sum_{m\ge0}a(4m)q^m\equiv\mathcal A_0W_0+2q\,\mathcal A_1W_2\pmod 4 .
+\]
+By Lemma~\ref{lem:omega}(i) and \eqref{eq:frob}, $\mathcal A_0W_0=f_2^{14}f_4/(f_1^{13}f_8^2)\equiv f_2^{14}f_4/(f_1f_2^6f_8^2)=f_2^8f_4/(f_1f_8^2)\equiv f_4/f_1\pmod 4$, which is $\equiv\psi(q)\varphi(q^2)$ as in the proof of Theorem~\ref{thm:B}. Modulo $2$, $\mathcal A_1\equiv f_{16}/(f_1f_4)$ and $W_2\equiv u(q^2)\equiv f_2f_{12}^2/(f_4f_6)$ by Lemma~\ref{lem:omega} and \eqref{eq:umod2}, so
+\[
+\mathcal A_1W_2\equiv\frac{f_2f_{12}^2f_{16}}{f_1f_4^2f_6}\equiv\frac{f_1^2\,f_{24}\,f_8^2}{f_1\,f_8\,f_6}=\frac{f_1f_8f_{24}}{f_6}\equiv f_1f_6^3f_8\pmod 2 .
+\]
+This proves Theorem~\ref{thm:C}. \qed
+
+% =====================================================================
+\section{Proof of Theorem~\ref{thm:D}}\label{sec:D}
+% =====================================================================
+
+\subsection{Reduction}
+Since $\varphi(q)=1+2X(q)$ we have $\varphi(q^2)=\varphi(q^4)+2\big(X(q^2)-X(q^4)\big)$, and by \eqref{eq:mod2basic} and \eqref{eq:frob}, $f_1f_8\equiv f_1^9=(f_1^3)^3\equiv\psi(q)^3\equiv\psi(q)\psi(q^2)$ and $f_6^3\equiv\psi(q^6)\pmod 2$. Hence Theorem~\ref{thm:C} gives
+\begin{equation}\label{eq:reduction}
+\sum_{m\ge0}a(4m)q^m\equiv\psi(q)\varphi(q^4)+2\,\mathcal G(q)\pmod 4,
+\end{equation}
+where
+\[
+\mathcal G(q):=\psi(q)\big(X(q^2)+X(q^4)\big)+q\,\psi(q)\psi(q^2)\psi(q^6).
+\]
+Only $\mathcal G\bmod 2$ matters. The coefficient of $q^m$ in $\psi(q)\varphi(q^4)=\sum_{j\ge0,\,y\in\Z}q^{j(j+1)/2+4y^2}$ is the number of $(x,y)$ with $x\ge1$ odd and $x^2+32y^2=8m+1$, i.e.\ $\frac12 r_{32}(8m+1)$. Thus Theorem~\ref{thm:D} is equivalent to
+\begin{equation}\label{eq:Gclaim}
+[q^m]\mathcal G\equiv E(m)\pmod 2\qquad(m\ge0).
+\end{equation}
+
+\subsection{Three-dissection}
+By \eqref{eq:3diss}, $\psi(q)=P(q^3)+q\psi(q^9)$, $\psi(q^2)=P(q^6)+q^2\psi(q^{18})$, $X(q^2)=X(q^{18})+q^2u(q^6)$ and $X(q^4)=X(q^{36})+q^4u(q^{12})$. Multiplying out and sorting by exponent modulo $3$ (the factor $\psi(q^6)$ is a series in $q^3$), we find, with $Q=q^3$:
+\begin{align*}
+\sum_{E\ge0}[q^{3E}]\mathcal G\cdot Q^{E}&=P(Q)\big(X(Q^6)+X(Q^{12})\big)+Q\,\psi(Q^3)u(Q^2)+Q\,P(Q)\psi(Q^2)\psi(Q^6),\\
+\sum_{E\ge0}[q^{3E+1}]\mathcal G\cdot Q^{E}&=Q\,P(Q)u(Q^4)+\psi(Q^3)\big(X(Q^6)+X(Q^{12})\big)\\&\qquad+P(Q)P(Q^2)\psi(Q^2)+Q\,\psi(Q^3)\psi(Q^2)\psi(Q^6),\\
+\sum_{E\ge0}[q^{3E+2}]\mathcal G\cdot Q^{E}&=P(Q)u(Q^2)+Q\,\psi(Q^3)u(Q^4)+\psi(Q^3)P(Q^2)\psi(Q^2).
+\end{align*}
+
+\subsection{The class \texorpdfstring{$m\equiv2\pmod 3$}{m = 2 mod 3}}
+We show the third series vanishes modulo $2$. By \eqref{eq:mod2basic}, \eqref{eq:umod2} and \eqref{eq:frob}, modulo $2$:
+\begin{align*}
+P(Q)u(Q^2)&\equiv f_1\frac{f_2f_{12}^2}{f_4f_6}\equiv\frac{f_3^6}{f_1},\\
+Q\psi(Q^3)u(Q^4)&\equiv Q\,\frac{f_6^2}{f_3}\cdot\frac{f_4f_{24}^2}{f_8f_{12}}\equiv Q\,\frac{f_3^{15}}{f_1^4},\\
+\psi(Q^3)P(Q^2)\psi(Q^2)&\equiv\frac{f_6^2}{f_3}\,f_2\,f_2^3\equiv f_3^3f_1^8,
+\end{align*}
+where $f_k$ now denotes $(Q^k;Q^k)_\infty$. Multiplying the sum by the unit $f_1^4/f_3^3$, the claim becomes $f_1^3f_3^3+Qf_3^{12}+f_1^{12}\equiv0$, i.e.\ (as $f_1^3\equiv\psi(Q)$, $f_1^{12}\equiv f_4^3\equiv\psi(Q^4)$, $f_3^{12}\equiv\psi(Q^{12})$)
+\[
+\psi(Q)\psi(Q^3)\equiv\psi(Q^4)+Q\,\psi(Q^{12})\pmod 2,
+\]
+which is \eqref{eq:ramanujan}. Hence $[q^m]\mathcal G\equiv0$ for $m\equiv2\pmod3$.
+
+\subsection{Converting theta products into representation numbers}
+Completing squares turns the exponents of the theta series into values of binary quadratic forms; we use
+\[
+24\cdot\tfrac{k(3k-1)}{2}+1=(6k-1)^2,\qquad 8\cdot\tfrac{j(j+1)}{2}+1=(2j+1)^2,\qquad 3\cdot k(3k+2)+1=(3k+1)^2 .
+\]
+The map $k\mapsto 6k-1$ is a bijection from $\Z$ onto the integers $\equiv5\pmod 6$, and $x\mapsto|x|$ is a bijection from these onto the positive integers prime to $6$; likewise $k\mapsto 3k+1$ followed by $|\cdot|$ is a bijection from $\Z$ onto the positive integers prime to $3$.
+
+\subsubsection*{The class $m\equiv0\pmod 3$}
+Write $m=3E$, so $N=24E+1$; note $\gcd(N,6)=1$ and $N\equiv1\pmod{24}$. By \eqref{eq:ramanujan} with $q\mapsto Q^2$, $\psi(Q^2)\psi(Q^6)\equiv\psi(Q^8)+Q^2\psi(Q^{24})$, so modulo $2$ the first series in the dissection is the sum of five products. Their coefficients of $Q^E$ are:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $P(Q)X(Q^6)$: pairs $(k,y)\in\Z\times\Z_{\ge1}$ with $N=(6k-1)^2+144y^2$. Every solution of $N=x^2+144y^2$ has $\gcd(x,6)=1$, so the count is $\#\{x,y\ge1: x^2+144y^2=N\}=\frac14\big(r_{144}(N)-2\ind{N=\sq}\big)$.
+\item $P(Q)X(Q^{12})$: similarly $\frac14\big(r_{288}(N)-2\ind{N=\sq}\big)$.
+\item $Q\psi(Q^3)u(Q^2)$: $24(1+3\tfrac{j(j+1)}2+2k(3k+2))+1=9(2j+1)^2+16(3k+1)^2$. Every solution of $N=9X^2+16Z^2$ has $X$ odd, $3\nmid Z$ and $X,Z\neq0$, so the count is $\frac14 r_{9,16}(N)$.
+\item $Q\,P(Q)\psi(Q^8)$: $N=(6k-1)^2+24(2j+1)^2$; the count is $\#\{x\ge1,\ w\ge1\text{ odd}: x^2+24w^2=N\}=\frac14\big(r_{24}(N)-r_{96}(N)\big)$.
+\item $Q^3P(Q)\psi(Q^{24})$: $N=(6k-1)^2+72(2j+1)^2$; the count is $\frac14\big(r_{72}(N)-r_{288}(N)\big)$.
+\end{enumerate}
+Adding, $[q^{3E}]\mathcal G\equiv\frac14\big(r_{144}+r_{9,16}+r_{24}-r_{96}+r_{72}\big)(N)-\ind{N=\sq}\pmod 2$, which is \eqref{eq:Gclaim}. (Each of the five counts is an integer, so so is $E(m)$.)
+
+\subsubsection*{The class $m\equiv1\pmod 3$}
+Write $m=3E+1$, so $N=24E+9$, $3\mid N$ and $N\equiv1\pmod 8$. Modulo $2$, $P(Q)P(Q^2)\psi(Q^2)\equiv f_1f_2^4\equiv f_1f_8\equiv P(Q)P(Q^8)$ and $Q\psi(Q^3)\psi(Q^2)\psi(Q^6)\equiv Q\psi(Q^3)\psi(Q^8)+Q^3\psi(Q^3)\psi(Q^{24})$ by \eqref{eq:ramanujan}. We use that if $3\mid N$ and $N=x^2+cz^2$ with $c\equiv2\pmod 3$, then $3\mid x\iff 3\mid z$. The coefficients of $Q^E$ are:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item $QP(Q)u(Q^4)$: $N=(6k-1)^2+32(3l+1)^2$; count $\#\{x,z\ge1: 3\nmid xz,\ x^2+32z^2=N\}=\frac14\big(r_{32}(N)-r_{32}(N/9)\big)$.
+\item $\psi(Q^3)X(Q^6)$: $N=9(2j+1)^2+144y^2$, i.e.\ $N/9=X^2+16y^2$ with $X$ odd, $y\ge1$; count $\frac14\big(r_{16}(N/9)-2\ind{N/9=\sq}\big)$.
+\item $\psi(Q^3)X(Q^{12})$: count $\frac14\big(r_{32}(N/9)-2\ind{N/9=\sq}\big)$.
+\item $P(Q)P(Q^8)$: $N=(6k-1)^2+8(6l-1)^2$; count $\#\{x,z\ge1: \gcd(xz,6)=1,\ x^2+8z^2=N\}=\frac14\big(r_8(N)-r_{32}(N)-r_8(N/9)+r_{32}(N/9)\big)$.
+\item $Q\psi(Q^3)\psi(Q^8)$: $N=9X^2+24W^2$, i.e.\ $N/3=3X^2+8W^2$ with $X,W$ odd and positive; count $\frac14\big(r_{3,8}(N/3)-r_{3,32}(N/3)\big)$.
+\item $Q^3\psi(Q^3)\psi(Q^{24})$: $N/9=X^2+8W^2$ with $X,W$ odd and positive; count $\frac14\big(r_8(N/9)-r_{32}(N/9)\big)$.
+\end{enumerate}
+Adding, all terms $r_{32}(N)$, $r_{32}(N/9)$ and $r_8(N/9)$ cancel, and
+\[
+[q^{3E+1}]\mathcal G\equiv\tfrac14\big(r_8(N)+r_{16}(N/9)+r_{3,8}(N/3)-r_{3,32}(N/3)\big)-\ind{N/9=\sq}\pmod 2 ,
+\]
+which is \eqref{eq:Gclaim}. This completes the proof of Theorem~\ref{thm:D}. \qed
+
+% =====================================================================
+\section{Binary quadratic forms and the proof of Theorem~\ref{thm:E}}\label{sec:forms}
+% =====================================================================
+
+\subsection{Orders and a pairing lemma}
+Let $\Ocal$ be an order of discriminant $D<-4$ in an imaginary quadratic field $K$, with conductor $\mathfrak f$, so $\Ocal^\times=\{\pm1\}$. For $n\ge1$ coprime to $\mathfrak f$, every ideal of $\Ocal$ of norm $n$ is invertible, and ideals of $\Ocal$ prime to $\mathfrak f$ correspond bijectively, preserving norms, products, conjugation and principality, to ideals of $\Ocal_K$ prime to $\mathfrak f$ \cite[Prop.~7.20]{Cox}. Let $\Cl(\Ocal)$ be the form class group, identified with the group of classes of primitive positive definite forms of discriminant $D$ \cite[Thm.~7.7]{Cox}. For a set $S\subseteq\Cl(\Ocal)$ and $n$ coprime to $\mathfrak f$ put
+\[
+A_S(n):=\#\{\fa\subseteq\Ocal:\ N\fa=n,\ [\fa]\in S\}.
+\]
+If $F$ is an \emph{ambiguous} primitive form (one whose class $C$ satisfies $C=C^{-1}$, e.g.\ $F=ax^2+cy^2$), then for $n$ coprime to $\mathfrak f$,
+\begin{equation}\label{eq:rA}
+r_F(n)=2\,A_{\{C\}}(n),
+\end{equation}
+since $|\Ocal^\times|=2$ \cite[\S7]{Cox}.
+
+\begin{lemma}[Pairing lemma]\label{lem:pairing}
+Let $S\subseteq\Cl(\Ocal)$ satisfy $S^{-1}=S$. Let $p\nmid D\mathfrak f$ be prime and $n=pM$ with $p\nmid M$, $\gcd(n,\mathfrak f)=1$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item If $p$ is inert in $K$, then $A_S(n)=0$.
+\item If $p$ splits, $p\Ocal=\fp\bar\fp$, and $[\fp]^2S=S$, then $A_S(n)=2A_{[\fp]S}(M)$ and
+\[
+A_{[\fp]S}(M)\equiv\#\{\fa=\bar\fa:\ N\fa=M,\ [\fa]\in[\fp]S\}\pmod 2 .
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) No ideal has norm exactly divisible by an inert prime. (b) An ideal of norm $pM$ is $\fp\fa$ or $\bar\fp\fa$ with $N\fa=M$; since $[\bar\fp]=[\fp]^{-1}$ and $[\fp]^{-1}S=[\fp]S$ (from $[\fp]^2S=S$), both conditions $[\fp\fa]\in S$ and $[\bar\fp\fa]\in S$ are equivalent to $[\fa]\in[\fp]S$. Complex conjugation is an involution on ideals of norm $M$ mapping the class set $[\fp]S$ to $[\fp]^{-1}S^{-1}=[\fp]S$; only its fixed points contribute modulo $2$.
+\end{proof}
+
+\begin{lemma}\label{lem:fixed}
+Let $M$ be odd and coprime to $\mathfrak f$. The ideals $\fa$ of $\Ocal$ with $N\fa=M$ and $\fa=\bar\fa$ are $(k)$ with $k^2=M$ and, if $3$ ramifies in $K$ and $3\nmid\mathfrak f$, the ideals $k\fr$ with $3k^2=M$, where $\fr^2=(3)$. Here $(k)$ is principal.
+\end{lemma}
+
+\begin{proof}
+Pass to $\Ocal_K$. A conjugation-stable ideal prime to $2$ has equal exponents at $\mathfrak q$ and $\bar{\mathfrak q}$ for split $\mathfrak q$, arbitrary exponents at inert primes, and arbitrary exponents at ramified primes; collecting, it equals $(k)\prod\fr_\ell^{e_\ell}$ with $e_\ell\in\{0,1\}$ over odd ramified $\ell$. In all fields below the only odd prime that can ramify is $3$.
+\end{proof}
+
+\subsection{The class groups involved}
+The forms in Theorem~\ref{thm:D} have the discriminants listed in the table below; we also use the maximal orders of discriminants $-4$ and $-8$. The following facts follow from enumerating reduced forms and from Gauss's genus theory, in which the principal genus equals $\Cl(\Ocal)^2$ and the genus of a class is determined by the assigned characters \cite[\S\S2--3, Thm.~3.15]{Cox}. For $D$ below and a prime $p\nmid 6$, the assigned characters at $p$ are among $\left(\frac{-4}{p}\right)$, $\left(\frac{8}{p}\right)$ and $\left(\frac{p}{3}\right)$ (the last only when $3\mid D$).
+
+\begin{center}
+\small
+\begin{tabular}{@{}lllll@{}}
+\toprule
+$D$ & field & $h(D)$ & $\Cl(D)$ & principal genus $=\Cl(D)^2$\\
+\midrule
+$-128$ & $\Q(\sqrt{-2})$ & $4$ & $\Z/4$ & $\{[x^2+32y^2],[4x^2+4xy+9y^2]\}$\\
+$-288$ & $\Q(\sqrt{-2})$ & $4$ & $(\Z/2)^2$ & $\{[x^2+72y^2]\}$\\
+$-96$ & $\Q(\sqrt{-6})$ & $4$ & $(\Z/2)^2$ & $\{[x^2+24y^2]\}$\\
+$-384$ & $\Q(\sqrt{-6})$ & $8$ & $\Z/4\times\Z/2$ & $\{[x^2+96y^2],C_2\}$\\
+$-576$ & $\Q(i)$ & $8$ & (4 genera) & $\{[x^2+144y^2],[9x^2+16y^2]\}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Here $C_2$ denotes the element of order $2$ in $\Cl(-384)^2$.
+
+For $D=-576$, $9x^2+16y^2$ represents $25$, on which all assigned characters are trivial, so it lies in the principal genus, which has $8/4=2$ classes. For $D=-384$, the class $R':=[3x^2+32y^2]$ represents $35$, and $\left(\frac{-4}{35}\right)=-1$, so $R'$ is not in the principal genus. In $\Q(\sqrt{-6})$ the prime $3$ ramifies, $3\Ocal=\fr^2$, and $\fr$ is the unique ideal of norm $3$. Since $3x^2+8y^2$ (discriminant $-96$) and $3x^2+32y^2$ (discriminant $-384$) represent $3$, and both classes are ambiguous, we get $[\fr]=R:=[3x^2+8y^2]$ for $D=-96$ and $[\fr]=R'$ for $D=-384$.
+
+Consequently, for a prime $p\equiv1\pmod 8$ split in the relevant field and a prime $\fp$ above it:
+\begin{enumerate}[label=\textup{(G\arabic*)}]
+\item In $D=-128$: $[\fp]\in\Cl^2$ and $[\fp]^2\in\Cl^4=1$. Moreover $[\fp]=1$ iff $p=x^2+32y^2$ is solvable.
+\item If $p\equiv1\pmod{24}$: $[\fp]$ lies in the principal genus for each of $D=-288,-96,-384,-576$. Hence $[\fp]=1$ for $D=-288,-96$ (so $p=x^2+72y^2$ and $p=x^2+24y^2$ are solvable), $[\fp]^2=1$ for $D=-384$ (exponent $4$), $[\fp]\in H:=\Cl(-576)^2$, and $[\fp]=1$ in $\Cl(-384)$ iff $p=x^2+96y^2$ is solvable.
+\item If $p\equiv17\pmod{24}$: $p$ is inert in $\Q(\sqrt{-6})$, and $\left(\frac p3\right)=-1$ shows $[\fp]\notin$ principal genus for $D=-288,-576$, while $[\fp]^2\in\Cl^2$.
+\end{enumerate}
+For $p\equiv 13\pmod{24}$, $p$ is inert in $\Q(\sqrt{-2})$ and $\Q(\sqrt{-6})$ and splits in $\Q(i)$, with $\left(\frac 8p\right)=-1$, so $[\fp]\notin\Cl(-576)^2$ but $[\fp]^2\in\Cl(-576)^2$. For $p\equiv23\pmod{24}$, $p$ is inert in $\Q(i)$, $\Q(\sqrt{-2})$ and $\Q(\sqrt{-6})$.
+
+Finally, for $K\equiv1\pmod 8$ we have $r_8(K)=r_2(K)=2\sum_{d\mid K}\left(\frac{-8}{d}\right)$ and $r_{16}(K)=\frac12r_1(K)=2\sum_{d\mid K}\left(\frac{-4}{d}\right)$ (the parity argument in the proof of Theorem~\ref{thm:B}). For a real character $\chi$ and odd $K$, $\sum_{d\mid K}\chi(d)$ is multiplicative, and it is odd if and only if $K$ is a perfect square (provided $\chi(\ell)\ne0$ for $\ell\mid K$).
+
+\subsection{Proof of Theorem~\ref{thm:E}}
+Let $N=8m+1=pM$ with $p\nmid M$. Then $\ind{N=\sq}=\ind{N/9=\sq}=0$.
+
+\emph{(a), $p\equiv23\pmod{24}$.} All forms in \eqref{eq:E} and $x^2+32y^2$ belong to $\Q(i)$, $\Q(\sqrt{-2})$ or $\Q(\sqrt{-6})$, in which $p$ is inert, so all representation numbers vanish by \eqref{eq:rA} and Lemma~\ref{lem:pairing}(a) (for $r_8$ and $r_{16}$ use the divisor-sum formulas, which have local factor $1+\chi(p)=0$).
+
+\emph{(a), $p\equiv13\pmod{24}$.} The terms from $\Q(\sqrt{-2})$ and $\Q(\sqrt{-6})$ vanish. For $m\equiv0\pmod 3$ the remaining term is $\frac14(r_{144}+r_{9,16})(N)=\frac12A_H(N)$, $H=\Cl(-576)^2$. Since $[\fp]\notin H$ and $[\fp]^2\in H$, Lemma~\ref{lem:pairing}(b) gives $\frac12A_H(N)=A_{[\fp]H}(M)$, and by Lemma~\ref{lem:fixed} the only possible fixed point is principal, hence not in $[\fp]H$; so $A_{[\fp]H}(M)$ is even. For $m\equiv1\pmod3$ the remaining term is $\frac14r_{16}(N/9)=\frac12\sum_{d\mid N/9}\left(\frac{-4}{d}\right)=\sum_{d\mid M/9}\left(\frac{-4}{d}\right)$, which is even since $M/9\equiv5\pmod 8$ is not a square. For $m\equiv2\pmod 3$ the only term $\frac12r_{32}(N)$ vanishes. Hence $a(4m)\equiv0\pmod4$.
+
+\emph{(b).} Let $p\equiv1\pmod 8$.
+
+\emph{The term $\frac12r_{32}(N)$.} Apply Lemma~\ref{lem:pairing} in $D=-128$ with $S=\{1\}$, using (G1): $\frac12r_{32}(N)=A_{\{1\}}(N)=2A_{\{[\fp]\}}(M)$, and $A_{\{[\fp]\}}(M)\equiv\ind{M=\sq}\ind{[\fp]=1}\pmod 2$. Hence
+\[
+\tfrac12r_{32}(N)\equiv2\ind{M=\sq}\ind{p=x^2+32y^2}\pmod 4 .
+\]
+
+\emph{Class $m\equiv2\pmod 3$.} Here $a(4m)\equiv\frac12r_{32}(N)$. If $p\equiv1\pmod{24}$ then $M\equiv2\pmod3$ is not a square. In both cases the result agrees with $2\varepsilon(p)\ind{M=\sq}$.
+
+\emph{Class $m\equiv0\pmod 3$} ($\gcd(N,6)=1$). If $p\equiv17\pmod{24}$ then $M\equiv2\pmod 3$ is not a square, $r_{24}=r_{96}=0$ (inert), and by (G3) and Lemmas~\ref{lem:pairing}, \ref{lem:fixed} the quantities $\frac14(r_{144}+r_{9,16})(N)=A_{[\fp]H}(M)$ and $\frac14r_{72}(N)=A_{\{[\fp]\}}(M)$ are even (no fixed points outside the principal class). So $a(4m)\equiv0=2\varepsilon(p)\ind{M=\sq}$. If $p\equiv1\pmod{24}$, then by (G2) and Lemmas~\ref{lem:pairing}, \ref{lem:fixed}, modulo $2$:
+\begin{align*}
+\tfrac14(r_{144}+r_{9,16})(N)&\equiv\ind{M=\sq}, & \tfrac14r_{72}(N)&\equiv\ind{M=\sq},\\
+\tfrac14r_{24}(N)&\equiv\ind{M=\sq}, & \tfrac14r_{96}(N)&\equiv\ind{M=\sq}\,\ind{p=x^2+96y^2}.
+\end{align*}
+Hence $2E(m)\equiv2\ind{M=\sq}\big(1+\ind{p=x^2+96y^2}\big)\pmod 4$.
+
+\emph{Class $m\equiv1\pmod 3$} ($3\mid N$, so $3\mid M$). By the divisor-sum formulas, $p$ contributes a local factor $2$ to both, so $\frac14r_8(N)\equiv\ind{M=\sq}$ and $\frac14r_{16}(N/9)\equiv\ind{M/9=\sq}\pmod 2$; since $3\mid M$, $M=\sq\iff M/9=\sq$, and these two terms cancel modulo $2$. If $p\equiv17\pmod{24}$, $r_{3,8}(N/3)=r_{3,32}(N/3)=0$. If $p\equiv1\pmod{24}$, apply Lemma~\ref{lem:pairing} to $S=\{R\}$ in $D=-96$ (where $[\fp]=1$) and to $S=\{R'\}$ in $D=-384$ (where $[\fp]^2=1$ and $[\fp]\neq R'$), with $n=N/3=p\cdot(M/3)$. By Lemma~\ref{lem:fixed}, the fixed points in the class $R=[\fr]$, resp.\ $[\fp]R'$, are the ideals $k\fr$ with $M/3=3k^2$, which exist iff $M=\sq$ (as $3\mid M$), and in the second case only if $[\fp]=1$. Thus
+\[
+\tfrac14r_{3,8}(N/3)\equiv\ind{M=\sq},\qquad \tfrac14r_{3,32}(N/3)\equiv\ind{M=\sq}\ind{p=x^2+96y^2}\pmod 2,
+\]
+and again $2E(m)\equiv2\ind{M=\sq}\big(1+\ind{p=x^2+96y^2}\big)\pmod 4$.
+
+\emph{Conclusion.} In all classes, $a(4m)\equiv2\ind{M=\sq}\cdot e(p)\pmod 4$ with $e(p)=\ind{p=x^2+32y^2}$ if $p\equiv17\pmod{24}$, and $e(p)\equiv\ind{p=x^2+32y^2}+1+\ind{p=x^2+96y^2}\pmod 2$ if $p\equiv1\pmod{24}$. In both cases $e(p)\equiv\varepsilon(p)\pmod 2$ by \eqref{eq:eps}. Taking $m=(p-1)/8$ (so $M=1$) gives $a(\frac{p-1}{2})\equiv2\varepsilon(p)\pmod 4$. \qed
+
+\begin{proof}[Proof of Corollary~\ref{cor:families}]
+The first statement is Theorem~\ref{thm:E}. The reformulation lists the residue classes $m\bmod p^2$ with $p\,\|\,8m+1$. If $p\equiv1\pmod 8$ and $\varepsilon(p)=1$, Theorem~\ref{thm:E}(b) with $m=(p-1)/8$ gives $a(\frac{p-1}{2})\equiv2\pmod 4$.
+\end{proof}
+
+% ---------------------------------------------------------------
+\section*{Declarations}
+
+\subsection*{Funding}
+This research received no specific grant from any funding agency in the public, commercial, or not-for-profit sectors.
+
+\subsection*{Competing interests}
+The author declares that there are no competing interests.
+
+\subsection*{Data availability}
+No datasets were generated or analysed in this study. The numerical computations mentioned in the text consist of exact power-series and quadratic-form computations that can be reproduced from the formulas in the paper; the code is available from the author on reasonable request.
+
+\subsection*{Code availability}
+Available from the author on reasonable request.
+
+\subsection*{Ethics approval and consent}
+Not applicable.
+
+\subsection*{Author contributions}
+The author is solely responsible for the content of this article.
+
+\subsection*{Use of AI-assisted tools}
+An AI assistant (Claude, Anthropic) was used for exploratory computations, literature search and drafting. The author has checked all statements and proofs and takes full responsibility for the content of this article.
+
+% ---------------------------------------------------------------
+\begin{thebibliography}{99}
+
+\bibitem{APSY}
+G.~E. Andrews, D. Passary, J.~A. Sellers and A.~J. Yee,
+\emph{Congruences related to the Ramanujan/Watson mock theta functions $\omega(q)$ and $\nu(q)$},
+Ramanujan J. \textbf{43} (2017), 347--357.
+
+\bibitem{BB}
+K. Banerjee and K. Bringmann,
+\emph{Partition statistics and universal mixed mock modular forms},
+preprint, arXiv:2611.00728 (2026).
+
+\bibitem{BOR}
+K. Bringmann, K. Ono and R.~C. Rhoades,
+\emph{Eulerian series as modular forms},
+J. Amer. Math. Soc. \textbf{21} (2008), 1085--1104.
+
+\bibitem{Cao}
+Zhu Cao,
+\emph{Integer matrix exact covering systems and product identities for theta functions},
+preprint, arXiv:1005.5116 (2010).
+
+\bibitem{Cox}
+D.~A. Cox,
+\emph{Primes of the form $x^2+ny^2$: Fermat, class field theory, and complex multiplication},
+2nd ed., Wiley, Hoboken, NJ, 2013.
+
+\bibitem{Hir}
+M.~D. Hirschhorn,
+\emph{The Power of $q$: A Personal Journey},
+Developments in Mathematics \textbf{49}, Springer, Cham, 2017, \href{https://doi.org/10.1007/978-3-319-57762-3}{doi:10.1007/978-3-319-57762-3}.
+
+\bibitem{McI}
+R.~J. McIntosh,
+\emph{Second order mock theta functions},
+Canad. Math. Bull. \textbf{50} (2007), 284--290.
+
+\bibitem{Wang}
+L. Wang,
+\emph{Parity of coefficients of mock theta functions},
+J. Number Theory (2021), Computational Section, \href{https://doi.org/10.1016/j.jnt.2021.04.023}{doi:10.1016/j.jnt.2021.04.023}; arXiv:2007.03664.
+
+\bibitem{Wat}
+G.~N. Watson,
+\emph{The final problem: an account of the mock theta functions},
+J. London Math. Soc. \textbf{11} (1936), 55--80.
+
+\end{thebibliography}
+
+\end{document}
